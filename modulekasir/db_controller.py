@@ -3,6 +3,7 @@ import pandas as pd
 from pandas import DataFrame
 from prettytable import PrettyTable
 
+
 class Controller:
     """
     A class that provides methods for controlling data in a database.
@@ -51,7 +52,7 @@ class Controller:
             bool: True if the data directory exists, False otherwise.
         """
         return os.path.isdir(f"{self._data_path}")
-    
+
     def is_file_exists(self) -> bool:
         """
         Check if the data file exists in the data directory.
@@ -63,7 +64,7 @@ class Controller:
             self.create_dir()
 
         return self.filename in os.listdir(f"{self._data_path}")
-    
+
     def is_data_empty(self) -> bool:
         """
         Check if the data file is empty.
@@ -74,7 +75,7 @@ class Controller:
 
         if self.is_file_exists():
             return pd.read_csv(f"{self._data_path}\\{self.filename}").empty
-    
+
     def get_data_path(self) -> str:
         """
         Get the path to the data directory.
@@ -83,7 +84,7 @@ class Controller:
             str: The path to the data directory.
         """
         return self._data_path
-    
+
     def create_dir(self) -> None:
         """
         Create the data directory if it doesn't exist.
@@ -116,8 +117,11 @@ class Controller:
             list: The converted list.
         """
         return dataframe.values.tolist()
-    
-    def list_to_dataframe(self, list_data: list, columns_name: list) -> DataFrame:
+
+    def list_to_dataframe(
+            self,
+            list_data: list,
+            columns_name: list) -> DataFrame:
         """
         Convert a list to a DataFrame.
 
@@ -139,7 +143,7 @@ class Controller:
         """
         data = pd.read_csv(f"{self._data_path}\\{self.filename}")
         return data
-    
+
     def read_data(self, columns_name: list = ...) -> DataFrame:
         """
         Read data from the data file.
@@ -156,7 +160,7 @@ class Controller:
             print("File tidak ditemukan!\nMembuat file baru...")
             self.create_file(columns_name)
             return self.get_data()
-    
+
     def delete_data(self, index: int) -> None:
         """
         Delete data from the data file.
@@ -168,7 +172,11 @@ class Controller:
         data.drop(index=index, inplace=True)
         self.save_data(data)
 
-    def update_data(self, index: int, newdata: list | str | int, columns: str = ...) -> None:
+    def update_data(
+            self,
+            index: int,
+            newdata: list | str | int,
+            columns: str = ...) -> None:
         """
         Update data in the data file.
 
@@ -182,7 +190,7 @@ class Controller:
         else:
             data.loc[index] = newdata
         self.save_data(data)
-    
+
     def add_data(self, newdata: list | list[list]) -> None:
         """
         Add data to the data file.
@@ -199,8 +207,11 @@ class Controller:
             new_series = pd.Series(newdata, index=data.columns)
             data = data._append(new_series, ignore_index=True)
         self.save_data(data)
-    
-    def save_data(self, data: DataFrame | list[list], columns_name: list = ...) -> None:
+
+    def save_data(
+            self,
+            data: DataFrame | list[list],
+            columns_name: list = ...) -> None:
         """
         Save data to the data file.
 
@@ -216,7 +227,7 @@ class Controller:
             print("File tidak ditemukan!\n Membuat file baru...")
             self.create_file()
             data.to_csv(f"{self._data_path}\\{self.filename}", index=False)
-    
+
     def show_data(self) -> None:
         """
         Display data from the data file.
@@ -227,7 +238,7 @@ class Controller:
 
         table = PrettyTable()
         table.field_names = data.columns
-        
+
         for row in data_list:
             table.add_row(row)
         print(table)
@@ -247,7 +258,7 @@ class Controller:
             return data_type(data)
         except ValueError:
             raise ValueError(f"Data harus berupa {data_type.__name__}!")
-    
+
     def is_nested_lists(self, data: list) -> bool:
         """
         Check if the data is a nested list.

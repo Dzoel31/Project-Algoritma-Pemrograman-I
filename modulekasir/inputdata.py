@@ -1,6 +1,7 @@
 import os
 from .db_controller import Controller
 
+
 class InputData:
     """
     A class used to represent an InputData.
@@ -14,14 +15,15 @@ class InputData:
         - delete_data(): Delete data from the data file.
         - show_data(): Display data from the data file.
     """
+
     def __init__(self) -> None:
         self._controller = Controller("data_menu")
-        self._columns_name = ["Nama Menu", "Jenis Menu", "Harga" , "Stok"]
-    
+        self._columns_name = ["Nama Menu", "Jenis Menu", "Harga", "Stok"]
+
     def add_data(self) -> None:
         '''
         Input data to the data file.
-        
+
         Args:
             - nama_menu (str): The name of the menu.
             - jenis_menu (str): The type of the menu.
@@ -44,7 +46,7 @@ class InputData:
 
         self._controller.add_data(data)
         print("Data berhasil ditambahkan")
-    
+
     def update_data(self) -> None:
         '''
         Update data in the data file.
@@ -59,9 +61,9 @@ class InputData:
         if self._controller.is_data_empty():
             print("Data masih kosong.")
             return
-        
+
         self._controller.show_data()
-        
+
         index = input("Masukkan nomor menu yang ingin diubah: ")
         nama_menu = input("Masukkan nama menu: ")
         jenis_menu = input("Masukkan jenis [Makanan/Minuman]: ")
@@ -87,25 +89,25 @@ class InputData:
         if self._controller.is_data_empty():
             print("Data masih kosong.")
 
-        
         self._controller.show_data()
-        
+
         index = input("Masukkan nomor menu yang ingin dihapus: ")
 
         index = self._controller.convert_types(index, int)
-    
+
         self._controller.delete_data(index)
         print("Data berhasil dihapus")
 
     def show_data(self) -> None:
         if self._controller.is_data_empty():
             print("Data masih kosong.")
-        
+
         self._controller.show_data()
 
+
 def menu():
-    status= "Y"
-    while status != "N":        
+    status = "Y"
+    while status != "N":
         os.system("cls")
         print("1. Tambah data")
         print("2. Ubah data")
