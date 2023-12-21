@@ -1,4 +1,4 @@
-# Proyek Ujian Akhis Semester 1
+# Proyek Ujian Akhir Semester 1
 
 Program Kasir Restoran untuk memenuhi Tugas Akhir semester 1. Program ini memiliki beberapa fitur yaitu:
 
